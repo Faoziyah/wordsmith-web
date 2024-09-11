@@ -41,13 +41,13 @@ pipeline{
             String regID = "421740842601.dkr.ecr.us-east-2.amazonaws.com"
             dir("${WORKSPACE}"){
                 sh"""
-                    // aws eks update-kubeconfig --name dev-cluster
+                    aws eks update-kubeconfig --name dev-cluster
                     curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.15/2024-07-12/bin/linux/amd64/kubectl
                     chmod u+x ./kubectl
                     sed -i 's/REGID/${regID}/' deployment.yaml
                     sed -i 's/IMAGETAG/${componentVersion}/' deployment.yaml
-                    // ./kubectl apply -f deployment.yaml -n wordsmith
-                    // ./kubectl get all -n wordsmith
+                    ./kubectl apply -f deployment.yaml -n wordsmith
+                    ./kubectl get all -n wordsmith
                 """
             }
           }
